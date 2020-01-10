@@ -4,7 +4,7 @@ import classes from "./Burger.module.css";
 import BurgerIngredient from "./BurgerIngredient/BurgerIngredient";
 
 const burger = props => {
-  const transformedIngredients = Object.keys(props.ingredients)
+  let transformedIngredients = Object.keys(props.ingredients)
     //map out the ingredients
     .map(igKey => {
       //transform the string value into an array with as many elements for given ingredients
@@ -14,7 +14,16 @@ const burger = props => {
         //igkey ie: salad, cheese, etc, i = 1,2,3,etc
       });
       //access given "key" because still in igkey function of map method which runs in an array which contains all keys
-    });
+    })
+    .reduce((arr, el) => {
+      return arr.concat(el);
+    }, []);
+  if (transformedIngredients.length === 0) {
+    transformedIngredients = <p>Please Start Adding Ingredients!</p>;
+  }
+
+  //console.log(transformedIngredients);
+
   return (
     <div className={classes.Burger}>
       <BurgerIngredient type="bread-top" />
